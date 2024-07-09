@@ -71,6 +71,9 @@
 - Adjustors
 - MGAs
 ```
+
+### Flowchart
+![flow](https://github.com/NARESH-GOSURE/Gosure-Documentation/blob/main/flowchart.png)
 ### GoSure.AI: Unified Platform for Insurance Industry Segments
 
 - GoSure.AI provides a unified, integrated 360° platform for various stakeholders in the insurance industry. 
