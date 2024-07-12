@@ -43,6 +43,8 @@
 
 ### Lead Module Inputs:
 
+    - Users can customize or create Lead module inputs to meet their specific needs.
+
 ![](https://github.com/NARESH-GOSURE/Gosure-Documentation/blob/main/leadinfo.png)
 ![](https://github.com/NARESH-GOSURE/Gosure-Documentation/blob/main/leadaddressinfo.png)
 ![](https://github.com/NARESH-GOSURE/Gosure-Documentation/blob/main/lead%20description%20info.png)
