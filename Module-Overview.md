@@ -37,7 +37,7 @@
 - When creating a module, there are several essential components to consider.
 - These components help define the module's purpose, behaviour, and appearance within the system.
 
-### Module in Version1:
+### Modules:
 ![](https://github.com/NARESH-GOSURE/Gosure-Documentation/blob/main/module%20inputs.png)
 
 
