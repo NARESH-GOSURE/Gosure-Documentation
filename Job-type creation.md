@@ -4,16 +4,10 @@
 - A job type refers to a blueprint or a predefined template or a set of configurations that define a specific type of job or task. 
 - It outlines the characteristics, properties, and behaviours of a particular job or task.
 
-## Job Type Creation: Version 1 vs Version 2
-
-### Version 1: 
-    - In Version 1, creating a job type is a straightforward process thanks to an inbuilt UI design. 
-         - This allows users to create a job type that meets their specific needs without requiring external tools or technical expertise.
-
-### Version 2: 
-    - In contrast, Version 2 takes a more technical approach to job type creation. Instead of using an inbuilt UI, users must utilize Postman, an external API client, to create a job type. 
-        - This involves configuring an API request by passing the required parameters and properties for the specific job type. 
-            - This approach provides more flexibility and control, but may require more technical knowledge and expertise.
+### Job Type Creation:
+- You can create a job type using Postman, an external API client.
+- This process requires configuring an API request with the necessary parameters and properties for the specific job type.
+- While this approach provides flexibility and control, it demands a certain level of technical proficiency.
 
 ### Editing Job Parameters
 - Once a job type is created, it's not set in stone. We provide the flexibility to make changes to the job type as needed.
