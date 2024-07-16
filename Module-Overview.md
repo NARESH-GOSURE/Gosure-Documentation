@@ -7,27 +7,21 @@
  - Modules are often designed to be reusable, flexible, and easy to integrate with other modules or components.
 
 ### Example:
-- In the context of the Lead module mentioned earlier, it's likely a module that handles lead management, lead tracking, or lead generation-related tasks.
+- In the context of the Lead module, it's likely a module that handles lead management, lead tracking, or lead generation-related tasks.
 
 
-## Modules Compared to Different Versions
+### Module Creation
+#### Using Postman for Module Creation
 
-### Module Creation: Version 1 vs Version 2
+- The creation of modules and module categories involves the use of Postman, an external tool.
+- This approach offers several benefits, including:
+   1. Increased flexibility: With Postman, you have more control over the module creation process.
+   2. Greater control: Postman provides a more technical and customizable way to create modules and module categories.
 
-
-
-### Version 1: 
-    - In Version 1, Modules and Module categories can be created directly through the UI portal. 
-        -  This allows for a more intuitive and user-friendly experience.
-
-### Version 2: 
-    - In contrast, Version 2 requires the use of Postman, an external tool, to create module types and module categories. 
-        - This approach provides more flexibility and control, but may require more technical expertise.
-
-### Creating Modules and Module Categories: 
-    - To create a new module menu, an instance of the job type named "module-type" needs to be created. 
-        - Once this is done, the corresponding module categories can be defined based on the user's configuration. 
-            - This allows for a high degree of customization and flexibility in module creation.
+### Creating Modules and Module Categories:
+- To create a new module menu, an instance of the job type named "module-type" needs to be created.
+- Once this is done, the corresponding module categories can be defined based on the user's configuration.
+- This allows for a high degree of customization and flexibility in module creation.
 ## Our Module Features:
 1. The module is utilized to create, modify, access, and delete data within a specific job type.    
 2. Instead of granting access to all job types within a tenant, modules and module categories are employed to provide limited access by creating them. This allows for the creation of multiple job types within a particular tenant, while controlling user accessibility to each job type.
@@ -40,7 +34,8 @@
 6. Modules created at the configuration level should be easily accessible to everyone, ensuring seamless usability."
 ## Components Of Module Creation (Module Constants):
 
-- When creating a module, there are several essential components to consider. These components help define the module's purpose, behaviour, and appearance within the system.
+- When creating a module, there are several essential components to consider.
+- These components help define the module's purpose, behaviour, and appearance within the system.
 
 ### Module in Version1:
 ![](https://github.com/NARESH-GOSURE/Gosure-Documentation/blob/main/module%20inputs.png)
