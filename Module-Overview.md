@@ -99,7 +99,15 @@
             - In our Dashboard, we are visualising the secondary status and module information as a widget for the easy understand of visualization.
 
 
-### 3.	Similar To Active: 
+### 3. Is Email Input:
+ - This functionality allows the module to receive input information from emails, in addition to other sources.
+ - The two primary functions of this feature are:
+   1. Accessing inputs from emails
+   2. Enabling information from Wizards
+
+
+
+### 4.	Similar To Active: 
     - The 'Similar To Active' feature is designed to identify data that is similar to the currently active data.
         - This feature enables the module to recognize and extract relevant information from existing active data, making it easier to work with related data sets.
 
