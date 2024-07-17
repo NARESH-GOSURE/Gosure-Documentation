@@ -14,7 +14,7 @@
     provide an opportunity to perform additional processing,
     notification, or indexing on the data after it has been persisted.
 
-**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--**
+**\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--**
 
 **LIST OF PRE AND POST PERSISTANCE HOOKS:**
 
@@ -25,6 +25,22 @@
     will run the scheduler based on the rule.
 
 **Configuration:**
+
+```bash
+"postPersistHooks": [
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": [
+        "CREATED",
+        "MODIFIED",
+        "DELETED"
+      ],
+      "type": "POST_SAVE_SCHEDULER_TASK",
+      "configurationJobInstanceId": "",
+      "shouldChildrenInheritPersistHook": false
+    }
+  ]
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -58,7 +74,8 @@
 -   The scheduler task is executed, which runs the scheduler according
     to the updated rule.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 2.  **PRE_SUBJOB_ASSOCIATION:**
 
@@ -68,6 +85,15 @@
     association between the subjob and the parent job.
 
 **Configuration:**
+```bash
+"prePersistHooks": [
+    {
+      "orderOfExecution": 2,
+      "type": "PRE_SUBJOB_ASSOCIATION",
+      "configurationJobInstanceId": ""
+    }
+  ]
+```
 
 1.  orderOfExecution: 2 - This specifies the order in which this hook
     should be executed. In this case, it\'s the second hook to be
@@ -93,7 +119,8 @@
 
 -   The job instance is saved with the established association.
 
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 3.  **PRE_GENERATE_LINK_URL:**
 
@@ -103,6 +130,15 @@
     policy job in edit mode.
 
 **Configuration:**
+```bash
+"prePersistHooks": [
+            {
+                "orderOfExecution": 1,
+                "type": "PRE_GENERATE_LINK_URL"
+               
+            }
+        ]
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -128,7 +164,7 @@
 
 -   The job instance is saved with the generated link value.
 
-> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 4.  **PRE_GENERATE_TATS:**
 
@@ -138,6 +174,14 @@
     change.
 
 **Configuration:**
+```bash
+[
+	{
+        "orderOfExecution": 1,
+        "type": "PRE_GENERATE_TATS"       
+    }
+]
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -181,7 +225,8 @@ of calculations:
 
 -   The job instance is saved with the generated TATS values.
 
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 5.  **POST_GENERATE_PARENT_TATS:**
 
@@ -190,6 +235,19 @@ updated, or deleted. Its purpose is to generate TATS (Temporary
 Application Transactional Storage) values for the parent job instance.
 
 **Configuration:**
+```bash
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": [
+        "CREATED",
+        "MODIFIED",
+        "DELETED"
+      ],
+      "type": "POST_GENERATE_PARENT_TATS",
+      "configurationJobInstanceId": "",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -227,7 +285,8 @@ parent job instance.
 
 -   The parent job instance is updated with the new TATS values.
 
-> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 6.  **AUTO_FIELD_VALUE_GENERATION:**
 
@@ -235,6 +294,14 @@ parent job instance.
 purpose is to automatically generate field values for an instance.
 
 **Configuration:**
+```bash
+[
+	{
+        "orderOfExecution": 1,
+        "type": "AUTO_FIELD_VALUE_GENERATION"       
+    }
+]
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -280,7 +347,7 @@ transformations, or integrations with external systems.
 
 -   The job instance is saved with the generated field values.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 7.  **POST_AUTO_USER_CREATION:**
 
@@ -289,6 +356,15 @@ purpose is to automatically create a user account associated with the
 instance.
 
 **Configuration:**
+```bash
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": null,
+      "type": "POST_AUTO_USER_CREATION",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -330,7 +406,8 @@ hook will then create a user account associated with the instance.
 
 -   The user account is saved and associated with the job instance.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 8.  **POST_AUTO_USER_DELETION:**
 
@@ -339,6 +416,16 @@ purpose is to automatically delete the user account associated with the
 instance.
 
 **Configuration:**
+
+```bash
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": null,
+      "type": "POST_AUTO_USER_DELETION",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -374,7 +461,8 @@ Here\'s how it works:
 
 -   The user account is removed from the system.
 
-> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 9.  **POST_SEND_EMAIL:**
 
@@ -383,6 +471,15 @@ its status changes. Its purpose is to send an email notification to
 stakeholders and create a communication history sub-instance.
 
 **Configuration:**
+
+```bash
+[
+	{
+        "orderOfExecution": 1,
+        "type": "POST_SEND_EMAIL"       
+    }
+]
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -424,7 +521,8 @@ create a communication history sub-instance.
 -   The sub-instance is created to store a record of the email
     notification sent.
 
-    \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 10. **POST_CAMPAIGN_SAVE_SCHEDULER_TASK:**
 
@@ -434,6 +532,20 @@ instance data in the scheduler database, which is used to trigger
 campaign email sending tasks.
 
 **Configuration:**
+
+```bash
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": [
+        "CREATED",
+        "MODIFIED",
+        "DELETED"
+      ],
+      "type": "POST_CAMPAIGN_SAVE_SCHEDULER_TASK",
+      "configurationJobInstanceId": "",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -481,7 +593,8 @@ campaign instance data in the scheduler database.
 -   The scheduler uses this data to trigger campaign email sending
     tasks.
 
-> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 11. **POST_FETCH_RFP_DOCUMENTS:**
 
@@ -491,7 +604,19 @@ given SolNumber, upload them to S3, and save the S3 file URLs as
 sub-jobs of the instance.
 
 **Configuration:**
-
+```bash
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": [
+        "CREATED",
+        "MODIFIED",
+        "DELETED"
+      ],
+      "type": "POST_FETCH_RFP_DOCUMENTS",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
     executed.
@@ -532,7 +657,8 @@ given SolNumber and upload them to S3.
     field name and sub-job type, which are retrieved from the
     configuration job instance.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 12. **POST_CREATE_INSTANCE_FROM_XLSX:**
 
@@ -542,6 +668,18 @@ instance by parsing an XLSX file, validate the data, and update the XLSX
 file with any errors found.
 
 **Configuration:**
+
+```bash
+    {
+      "orderOfExecution": 1,
+      "jobOperationTypes": [
+        "CREATED"
+      ],
+      "type": "POST_CREATE_INSTANCE_FROM_XLSX",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -584,8 +722,9 @@ XLSX file with any errors found.
 
 -   After all validations, the hook saves the updated XLSX file to the
     instance.
+    
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 13. **POST_CHATGPT_PARSING:**
 
@@ -596,6 +735,15 @@ uses a configured job instance to map the keys from which the
 information is extracted to provide the values.
 
 **Configuration:**
+
+```bash
+    {
+      "orderOfExecution": 1,
+      "type": "POST_CHATGPT_PARSING",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -631,7 +779,7 @@ ChatGPT and save it in a job instance for the \"datasetAI\" job type.
 
 -   Saves the created data JSON in the job instance.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 14. **POST_API_ON_STATUS_CHANGE**:
 
@@ -642,6 +790,14 @@ status of subjobs when they are moved or copied to a different parent
 instance.
 
 **Configuration**
+```bash
+    {
+      "orderOfExecution": 1,
+      "type": "POST_API_ON_STATUS_CHANGE",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
+
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -672,7 +828,8 @@ The hook can perform various actions, including:
 -   This hook provides a flexible way to automate various workflows
     based on instance status changes.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 15. **POST_CREATE_TICKET_FROM_MAIL:**
 
@@ -682,6 +839,18 @@ and a \"Mail Repository\" subjob, which is linked to the newly created
 ticket.
 
 **Configuration:**
+```bash
+            {
+                 "orderOfExecution": 1,
+                "jobOperationTypes": null,
+                "type": "POST_CREATE_TICKET_FROM_MAIL",
+                "retrievalFieldsFromResponse": null,
+                "actionOnRetrievalFields": null,
+                "configurationJobInstanceId": null,
+                "shouldChildrenInheritPersistHook": false
+            }
+```
+
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -719,7 +888,8 @@ triggered. The hook performs the following actions:
     repositories from mail instances, streamlining the workflow and
     reducing manual effort.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 16. **POST_JOB_INSTANCE_VALIDATION: **
 
@@ -728,6 +898,15 @@ purpose is to validate the completeness of the created instance and
 trigger an email notification if the job type is configured to do so.
 
 **Configuration**
+```bash
+    {
+      "orderOfExecution": 1,
+      "type": "POST_JOB_INSTANCE_VALIDATION",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
+
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -763,7 +942,8 @@ hook performs the following actions:
     information for the email notification, such as the reply mail\'s
     body and any specific required fields that need to be validated.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 17. **POST_PUBLIC_DATA_ACCESS:**
 
@@ -772,6 +952,15 @@ instance is created. Its purpose is to create an instance in the
 accessible-api-service that can be accessed publicly.
 
 **Configuration**
+
+```bash
+    {
+      "orderOfExecution": 1,
+      "type": "POST_PUBLIC_DATA_ACCESS",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
+
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -791,7 +980,8 @@ hook creates an instance in the accessible-api-service that can be
 accessed publicly. This allows external systems or users to access the
 instance data without requiring authentication or authorization.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
 
 18. **POST_SAVE_JOBINSTANCE_CONDITIONS**
 
@@ -801,6 +991,15 @@ filter JSON from the job instance data and save it in a structured
 format in the condition's parameter of the job instance.
 
 **Configuration:**
+
+```bash
+    {
+      "orderOfExecution": 1,
+      "type": "POST_SAVE_JOBINSTANCE_CONDITIONS",
+      "configurationJobInstanceId": "<configurationJobInstanceId>",
+      "shouldChildrenInheritPersistHook": false
+    }
+```
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -831,7 +1030,7 @@ hook performs the following actions:
 -   Saves the Extracted information in a structured format in the
     condition's parameter of the job instance.
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
 19. **POST_RETRIEVE_MAIL_TYPE:**
 
@@ -842,6 +1041,15 @@ job type, and set the type of mail in a data field in the Mail
 Repository\'s instance.
 
 **Configuration:**
+
+```bash
+{
+      "orderOfExecution": 1,
+      "type": "POST_RETRIEVE_MAIL_TYPE",
+      "shouldChildrenInheritPersistHook": false
+}
+```
+
 
 -   orderOfExecution: 1 - This specifies the order in which this hook
     should be executed. In this case, it\'s the first hook to be
@@ -868,5 +1076,5 @@ The hook performs the following actions:
 
 -   Sets the retrieved mail type in a data field in the Mail
     Repository\'s instance.
+> \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
